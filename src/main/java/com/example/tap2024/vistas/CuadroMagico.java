@@ -16,3 +16,8 @@ public class CuadroMagico extends Stage {
         escena = new Scene(new Button("Da Click"));
     }
 }
+//git pull se pone solo cuando se usa de manera colaborativa
+//git status
+//git add .
+//git commit -a -m "Screen cuadro magico"
+//git push origin main
