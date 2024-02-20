@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -21,18 +23,19 @@ public class Memorama extends Stage {
     private HBox ventana5;
     private VBox vContenedor;
     private GridPane tecladoMemorama;
-    private Button[][] arrBotones = new Button[4][4];
-    private char[] arrEtiquetas = {'7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'};
+    private Button[][] arrBotones = new Button[2][4];
+    //private char[] arrEtiquetas = {'7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'};
 
     public Memorama() {
         CrearUI();
-        this.setTitle("Cuadro Mágico");
+        this.setTitle("Memorama");
         this.setScene(escena);
         this.show();
     }
 
     private void CrearUI() {
         tecladoMemorama = new GridPane();
+        CrearTablero();
         vContenedor = new VBox();
         vContenedor.setSpacing(10);
         ventana = new HBox();
@@ -42,7 +45,6 @@ public class Memorama extends Stage {
         ventana5 = new HBox();
         escena = new Scene(vContenedor, 500, 500);
         CrearEncabezado();
-        CrearTablero();
         CrearJugadores();
     }
 
@@ -65,20 +67,32 @@ public class Memorama extends Stage {
     }
 
     private void CrearTablero() {
-        int pos = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                arrBotones[i][j] =  new Button(arrEtiquetas[pos]+"");
-                arrBotones[i][j].setPrefSize(50,50);
-                tecladoMemorama.add(arrBotones[i][j],j,i);
+        String[] arrImages = {"calavera.jpg", "dragon.png", "gota.png", "minion.png"};
+        Button[][] arrButtonCartas = new Button[2][4];
 
-                if(arrEtiquetas[pos] == '+' || arrEtiquetas[pos] == '-' || arrEtiquetas[pos] == '*' || arrEtiquetas[pos] == '/')
-                    arrBotones[i][j].setId("color-operador");
-                pos++;
+        ImageView imvCarta;
+        int posx = 0;
+        int posy = 0;
+        int cont = 0;
+        for (int i = 0; i < arrImages.length; ) {
+            posx = (int) (Math.random()*2);
+            posy = (int) (Math.random()*4);
+            if(arrButtonCartas[posx][posy] == null){
+                arrButtonCartas[posx][posy] = new Button();
+                imvCarta = new ImageView("/images/"+arrImages[i].toString());
+                arrButtonCartas[posx][posy].setGraphic(imvCarta);
+                arrButtonCartas[posx][posy].setPrefSize(100,150);
+                tecladoMemorama.add(arrButtonCartas[posx][posy],posy,posx);
+                cont++;
+                if(cont == 2)  {
+                    i++;
+                    cont = 0;
+                }
             }
         }
 
         ventana2.getChildren().addAll(tecladoMemorama);
+        vContenedor.getChildren().addAll(ventana2);
     }
 
     private void CrearJugadores(){
