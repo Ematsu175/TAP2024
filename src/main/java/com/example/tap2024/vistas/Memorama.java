@@ -35,7 +35,6 @@ public class Memorama extends Stage {
 
     private void CrearUI() {
         tecladoMemorama = new GridPane();
-        CrearTablero();
         vContenedor = new VBox();
         vContenedor.setSpacing(10);
         ventana = new HBox();
@@ -44,6 +43,8 @@ public class Memorama extends Stage {
         ventana4 = new HBox();
         ventana5 = new HBox();
         escena = new Scene(vContenedor, 500, 500);
+        CrearTablero();
+
         CrearEncabezado();
         CrearJugadores();
     }
@@ -79,7 +80,7 @@ public class Memorama extends Stage {
             posy = (int) (Math.random()*4);
             if(arrButtonCartas[posx][posy] == null){
                 arrButtonCartas[posx][posy] = new Button();
-                imvCarta = new ImageView("/images/"+arrImages[i].toString());
+                imvCarta = new ImageView(getClass().getResource("/images/"+arrImages[i]).toString());
                 arrButtonCartas[posx][posy].setGraphic(imvCarta);
                 arrButtonCartas[posx][posy].setPrefSize(100,150);
                 tecladoMemorama.add(arrButtonCartas[posx][posy],posy,posx);
@@ -92,7 +93,7 @@ public class Memorama extends Stage {
         }
 
         ventana2.getChildren().addAll(tecladoMemorama);
-        vContenedor.getChildren().addAll(ventana2);
+        //vContenedor.getChildren().addAll(ventana2);
     }
 
     private void CrearJugadores(){
