@@ -39,7 +39,6 @@ public class Calculadora extends Stage {
     private void CrearUI(){
         txtPantalla = new TextField();
         gdpTeclado = new GridPane();
-        //ValidarTextField();
         CrearTeclado();
         vContenedor = new VBox(txtPantalla, gdpTeclado);
         vContenedor.setSpacing(5);
@@ -67,22 +66,11 @@ public class Calculadora extends Stage {
             }
         }
     }
-    private void ValidarTextField() {
-        txtPantalla.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*(\\.\\d{0,100})?")) {
-                txtPantalla.setText(oldValue);
-            }
-        });
-    }
     private void setValue(char simbolo) {
         txtPantalla.appendText(simbolo + "");
     }
     private String escritura(String v){
         System.out.println("Entra al metodo escritura: "+ v);
-        if (arrCont == 0 && !v.equals("+") || !v.equals("-") || !v.equals("*") || !v.equals("/") || !v.equals("=")){
-            txtPantalla.setText("Ingresa un numero");
-            return v;
-        }
         switch (v){
             case "0":
                 token+="0";
@@ -144,7 +132,7 @@ public class Calculadora extends Stage {
                         System.out.println("Valor - "+arrOperadores[i]);
                 }
                 token="";
-                txtPantalla.clear();
+                //txtPantalla.clear();
                 break;
             case "-":
                 System.out.println("Entramos al case -");
@@ -160,7 +148,7 @@ public class Calculadora extends Stage {
                         System.out.println(arrOperadores[i]);
                 }
                 token="";
-                txtPantalla.clear();
+                //txtPantalla.clear();
                 break;
             case "*":
                 System.out.println("Entramos al case *");
@@ -176,7 +164,7 @@ public class Calculadora extends Stage {
                         System.out.println(arrOperadores[i]);
                 }
                 token="";
-                txtPantalla.clear();
+                //txtPantalla.clear();
                 break;
             case "/":
                 System.out.println("Entramos al case /");
@@ -192,7 +180,7 @@ public class Calculadora extends Stage {
                         System.out.println(arrOperadores[i]);
                 }
                 token="";
-                txtPantalla.clear();
+                //txtPantalla.clear();
                 break;
             case "=":
                 arrOperadores[arrCont] = token;
