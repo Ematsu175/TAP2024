@@ -1,10 +1,10 @@
 package com.example.tap2024;
 
+import com.example.tap2024.modelos.Conexion;
 import com.example.tap2024.vistas.Calculadora;
 import com.example.tap2024.vistas.CuadroMagico;
 import com.example.tap2024.vistas.Memorama;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -33,6 +33,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+        Conexion.crearConexion();
     }
 
     private void CrearMenu() {
