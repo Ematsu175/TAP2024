@@ -71,173 +71,185 @@ public class Calculadora extends Stage {
     }
     private String escritura(String v){
         System.out.println("Entra al metodo escritura: "+ v);
-        switch (v){
-            case "0":
-                token+="0";
-                txtPantalla.setText(token);
-                break;
-            case "1":
-                System.out.println("Entramos al case 1");
-                token+="1";
-                txtPantalla.setText(token);
-                break;
-            case "2":
-                token+="2";
-                txtPantalla.setText(token);
-                break;
-            case "3":
-                token+="3";
-                txtPantalla.setText(token);
-                break;
-            case "4":
-                token+="4";
-                txtPantalla.setText(token);
-                break;
-            case "5":
-                token+="5";
-                txtPantalla.setText(token);
-                break;
-            case "6":
-                token+="6";
-                txtPantalla.setText(token);
-                break;
-            case "7":
-                System.out.println("Estamos en el case 7");
-                token+="7";
-                txtPantalla.setText(token);
-                break;
-            case "8":
-                token+="8";
-                txtPantalla.setText(token);
-                break;
-            case "9":
-                token+="9";
-                txtPantalla.setText(token);
-                break;
-            case ".":
-                token+=".";
-                txtPantalla.setText(token);
-                break;
-            case "+":
-                System.out.println("Entramos al case +  token -" + token + "-");
-                arrOperadores[arrCont] = token;
-                if (arrCont>0 && arrOperadores[arrCont].equals("")) {
-                    txtPantalla.setText("No se puede poner doble operador");
-                }
-                arrCont++;
-                arrOperadores[arrCont] = "+";
-                arrCont++;
-                for (int i = 0; i < arrOperadores.length; i++) {
-                    if(arrOperadores[i] != null)
-                        System.out.println("Valor - "+arrOperadores[i]);
-                }
-                token="";
-                //txtPantalla.clear();
-                break;
-            case "-":
-                System.out.println("Entramos al case -");
-                arrOperadores[arrCont] = token;
-                if (arrCont>0 && arrOperadores[arrCont].equals("")) {
-                    txtPantalla.setText("No se puede poner doble operador");
-                }
-                arrCont++;
-                arrOperadores[arrCont] = "-";
-                arrCont++;
-                for (int i = 0; i < arrOperadores.length; i++) {
-                    if(arrOperadores[i] != null)
-                        System.out.println(arrOperadores[i]);
-                }
-                token="";
-                //txtPantalla.clear();
-                break;
-            case "*":
-                System.out.println("Entramos al case *");
-                arrOperadores[arrCont] = token;
-                if (arrCont>0 && arrOperadores[arrCont].equals("")) {
-                    txtPantalla.setText("No se puede poner doble operador");
-                }
-                arrCont++;
-                arrOperadores[arrCont] = "*";
-                arrCont++;
-                for (int i = 0; i < arrOperadores.length; i++) {
-                    if(arrOperadores[i] != null)
-                        System.out.println(arrOperadores[i]);
-                }
-                token="";
-                //txtPantalla.clear();
-                break;
-            case "/":
-                System.out.println("Entramos al case /");
-                arrOperadores[arrCont] = token;
-                if (arrCont>0 && arrOperadores[arrCont].equals("")) {
-                    txtPantalla.setText("No se puede poner doble operador");
-                }
-                arrCont++;
-                arrOperadores[arrCont] = "/";
-                arrCont++;
-                for (int i = 0; i < arrOperadores.length; i++) {
-                    if(arrOperadores[i] != null)
-                        System.out.println(arrOperadores[i]);
-                }
-                token="";
-                //txtPantalla.clear();
-                break;
-            case "=":
-                arrOperadores[arrCont] = token;
-                arrCont++;
-                arrOperadores[arrCont] = "=";
-                double total=0;
-                double numero=0;
-
-                total = Double.parseDouble(arrOperadores[0]);
-                System.out.println("Total: "+ total);
-                String operador = "";
-                for (int i = 1; i < arrOperadores.length; i++) {
-                    if (arrOperadores[i] != null && !arrOperadores[i].equals("+") && !arrOperadores[i].equals("-")
-                            && !arrOperadores[i].equals("*") && !arrOperadores[i].equals("/"))  {
-                        if ( !arrOperadores[i].equals("=")) {
-                            numero = Double.parseDouble(arrOperadores[i]);
-                        }
-                        switch (operador) {
-                            case "+":
-                                total = total + numero ;
-                                numero = 0;
-                                operador = "";
-                                System.out.println("Total case: "+ total);
-                                break;
-                            case "-":
-                                total = total - numero;
-                                numero = 0;
-                                operador = "";
-                                System.out.println("Total case: "+ total);
-                                break;
-                            case "*":
-                                total = total * numero;
-                                numero = 0;
-                                operador = "";
-                                System.out.println("Total case: "+ total);
-                                break;
-                            case "/":
-                                if (numero == 0) {
-                                    txtPantalla.setText("No se puede dividir entre 0");
-                                    return v;
-                                }
-                                total = total / numero;
-                                numero = 0;
-                                operador = "";
-                                System.out.println("Total case: " + total);
-                                break;
+        if (v.matches("\\d+")) {
+            switch (v) {
+                case "0":
+                    token += "0";
+                    txtPantalla.setText(token);
+                    break;
+                case "1":
+                    System.out.println("Entramos al case 1");
+                    token += "1";
+                    txtPantalla.setText(token);
+                    break;
+                case "2":
+                    token += "2";
+                    txtPantalla.setText(token);
+                    break;
+                case "3":
+                    token += "3";
+                    txtPantalla.setText(token);
+                    break;
+                case "4":
+                    token += "4";
+                    txtPantalla.setText(token);
+                    break;
+                case "5":
+                    token += "5";
+                    txtPantalla.setText(token);
+                    break;
+                case "6":
+                    token += "6";
+                    txtPantalla.setText(token);
+                    break;
+                case "7":
+                    System.out.println("Estamos en el case 7");
+                    token += "7";
+                    txtPantalla.setText(token);
+                    break;
+                case "8":
+                    token += "8";
+                    txtPantalla.setText(token);
+                    break;
+                case "9":
+                    token += "9";
+                    txtPantalla.setText(token);
+                    break;
+                case ".":
+                    if (v.equals(".")) {
+                        // Verificar si ya hay un punto en el token actual
+                        if (!token.contains(".")) {
+                            token += ".";
                         }
                     } else {
-                        System.out.println("operador: "+operador);
-                        operador = arrOperadores[i];
-
+                        token += v;
                     }
-                }
-                token=String.valueOf(total);
-                System.out.println(token);
-                txtPantalla.setText(token);
-                break;
+
+                    txtPantalla.setText(token);
+                    break;
+                case "+":
+                    System.out.println("Entramos al case +  token -" + token + "-");
+                    arrOperadores[arrCont] = token;
+                    if (arrCont > 0 && arrOperadores[arrCont].equals("")) {
+                        txtPantalla.setText("No se puede poner doble operador");
+                    }
+                    arrCont++;
+                    arrOperadores[arrCont] = "+";
+                    arrCont++;
+                    for (int i = 0; i < arrOperadores.length; i++) {
+                        if (arrOperadores[i] != null)
+                            System.out.println("Valor - " + arrOperadores[i]);
+                    }
+                    token = "";
+                    //txtPantalla.clear();
+                    break;
+                case "-":
+                    System.out.println("Entramos al case -");
+                    arrOperadores[arrCont] = token;
+                    if (arrCont > 0 && arrOperadores[arrCont].equals("")) {
+                        txtPantalla.setText("No se puede poner doble operador");
+                    }
+                    arrCont++;
+                    arrOperadores[arrCont] = "-";
+                    arrCont++;
+                    for (int i = 0; i < arrOperadores.length; i++) {
+                        if (arrOperadores[i] != null)
+                            System.out.println(arrOperadores[i]);
+                    }
+                    token = "";
+                    //txtPantalla.clear();
+                    break;
+                case "*":
+                    System.out.println("Entramos al case *");
+                    arrOperadores[arrCont] = token;
+                    if (arrCont > 0 && arrOperadores[arrCont].equals("")) {
+                        txtPantalla.setText("No se puede poner doble operador");
+                    }
+                    arrCont++;
+                    arrOperadores[arrCont] = "*";
+                    arrCont++;
+                    for (int i = 0; i < arrOperadores.length; i++) {
+                        if (arrOperadores[i] != null)
+                            System.out.println(arrOperadores[i]);
+                    }
+                    token = "";
+                    //txtPantalla.clear();
+                    break;
+                case "/":
+                    System.out.println("Entramos al case /");
+                    arrOperadores[arrCont] = token;
+                    if (arrCont > 0 && arrOperadores[arrCont].equals("")) {
+                        txtPantalla.setText("No se puede poner doble operador");
+                    }
+                    arrCont++;
+                    arrOperadores[arrCont] = "/";
+                    arrCont++;
+                    for (int i = 0; i < arrOperadores.length; i++) {
+                        if (arrOperadores[i] != null)
+                            System.out.println(arrOperadores[i]);
+                    }
+                    token = "";
+                    //txtPantalla.clear();
+                    break;
+                case "=":
+                    arrOperadores[arrCont] = token;
+                    arrCont++;
+                    arrOperadores[arrCont] = "=";
+                    double total = 0;
+                    double numero = 0;
+
+                    total = Double.parseDouble(arrOperadores[0]);
+                    System.out.println("Total: " + total);
+                    String operador = "";
+                    for (int i = 1; i < arrOperadores.length; i++) {
+                        if (arrOperadores[i] != null && !arrOperadores[i].equals("+") && !arrOperadores[i].equals("-")
+                                && !arrOperadores[i].equals("*") && !arrOperadores[i].equals("/")) {
+                            if (!arrOperadores[i].equals("=")) {
+                                numero = Double.parseDouble(arrOperadores[i]);
+                            }
+                            switch (operador) {
+                                case "+":
+                                    total = total + numero;
+                                    numero = 0;
+                                    operador = "";
+                                    System.out.println("Total case: " + total);
+                                    break;
+                                case "-":
+                                    total = total - numero;
+                                    numero = 0;
+                                    operador = "";
+                                    System.out.println("Total case: " + total);
+                                    break;
+                                case "*":
+                                    total = total * numero;
+                                    numero = 0;
+                                    operador = "";
+                                    System.out.println("Total case: " + total);
+                                    break;
+                                case "/":
+                                    if (numero == 0) {
+                                        txtPantalla.setText("No se puede dividir entre 0");
+                                        return v;
+                                    }
+                                    total = total / numero;
+                                    numero = 0;
+                                    operador = "";
+                                    System.out.println("Total case: " + total);
+                                    break;
+                            }
+                        } else {
+                            System.out.println("operador: " + operador);
+                            operador = arrOperadores[i];
+
+                        }
+                    }
+                    token = String.valueOf(total);
+                    System.out.println(token);
+                    txtPantalla.setText(token);
+                    break;
+            }
+        } else {
+            txtPantalla.setText("Ingresa numeros");
         }
         //System.out.println("Token: "+token);
         //txtPantalla.setText(token);

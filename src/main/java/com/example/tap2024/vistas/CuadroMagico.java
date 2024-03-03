@@ -18,6 +18,7 @@ public class CuadroMagico extends Stage {
     private TextField txtPantalla;
     private Button boton;
     private HBox hContenedor;
+    private int totalCasillas;
     public CuadroMagico(){
         this.setTitle("Cuadro Magico");
         CrearUI();
@@ -36,24 +37,28 @@ public class CuadroMagico extends Stage {
         vContenedor.setSpacing(10);
         escena = new Scene(vContenedor);
         escena.getStylesheets().add(getClass().getResource("/estilos/cuadroMagico.css").toString());
+
     }
 
     private void CrearTablero(String v) {
+        int cont = 1;
         if (v.matches("\\d+")) {
             int valor = Integer.valueOf(v);
             System.out.println("El valor es: " + valor);
             if (valor>=3){
                 if ((valor % 2) != 0) {
                     gdpTablero.getChildren().clear();
-
                     for (int i = 0; i < valor; i++) {
                         for (int j = 0; j < valor; j++) {
                             Label label = new Label(" ");
                             label.setPrefSize(50, 50);
                             label.setId("marco_labels");
+                            label.setText(String.valueOf(cont));
                             gdpTablero.add(label, j, i);
+                            cont ++;
                         }
                     }
+                    System.out.println("La cntidad de casillas es: "+cont);
                     // Ajusta según el tamaño multiplicando la cantidad que hay de anho y se le añade un 20 para que haya un espacio adicional
                     double newWidth = valor * 50 + 20;
                     // Ajusta según el tamaño multiplicando la cantidad que hay de alto y se le añade un 20 para que haya un espacio adicional
@@ -70,6 +75,7 @@ public class CuadroMagico extends Stage {
             txtPantalla.setText("Coloque numeros");
         }
     }
+
 }
 //git pull se pone solo cuando se usa de manera colaborativa
 //git status
