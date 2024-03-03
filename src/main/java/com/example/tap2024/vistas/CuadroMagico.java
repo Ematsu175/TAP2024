@@ -1,5 +1,7 @@
 package com.example.tap2024.vistas;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +20,7 @@ public class CuadroMagico extends Stage {
     private TextField txtPantalla;
     private Button boton;
     private HBox hContenedor;
-    private int totalCasillas;
+    private Label label;
     public CuadroMagico(){
         this.setTitle("Cuadro Magico");
         CrearUI();
@@ -32,6 +34,7 @@ public class CuadroMagico extends Stage {
         hContenedor = new HBox();
         boton = new Button("Calcular");
         boton.setOnAction(event -> CrearTablero(txtPantalla.getText()));
+        label = new Label();
         hContenedor = new HBox(txtPantalla, boton);
         vContenedor = new VBox(hContenedor, gdpTablero);
         vContenedor.setSpacing(10);
@@ -42,6 +45,7 @@ public class CuadroMagico extends Stage {
 
     private void CrearTablero(String v) {
         int cont = 1;
+
         if (v.matches("\\d+")) {
             int valor = Integer.valueOf(v);
             System.out.println("El valor es: " + valor);
@@ -50,14 +54,17 @@ public class CuadroMagico extends Stage {
                     gdpTablero.getChildren().clear();
                     for (int i = 0; i < valor; i++) {
                         for (int j = 0; j < valor; j++) {
-                            Label label = new Label(" ");
+                            label = new Label();
                             label.setPrefSize(50, 50);
                             label.setId("marco_labels");
-                            label.setText(String.valueOf(cont));
+                            //label.setText(String.valueOf(cont));
                             gdpTablero.add(label, j, i);
                             cont ++;
                         }
                     }
+
+
+
                     System.out.println("La cntidad de casillas es: "+cont);
                     // Ajusta según el tamaño multiplicando la cantidad que hay de anho y se le añade un 20 para que haya un espacio adicional
                     double newWidth = valor * 50 + 20;
@@ -65,6 +72,53 @@ public class CuadroMagico extends Stage {
                     double newHeight = valor * 50 + 80;
                     this.setWidth(newWidth);
                     this.setHeight(newHeight);
+                    // Resolucion
+                    double vd=Double.parseDouble(v);
+                    int tam=Integer.valueOf(v)-1;
+                    int r=0,c= (int) Math.ceil(vd/2)-1;
+                    int id=1;
+                    int rant,cant;
+                    while(id<=((tam+1)*(tam+1))){
+                        System.out.println("id-> "+id+" r -> "+r+"   c-> "+c);
+                        Node nodo= getNodeByRowColumnIndex(r,c,gdpTablero);
+                        Label label = (Label) nodo;
+                        label.setText(String.valueOf(id));
+                        id++;
+                        rant=r;
+                        cant=c;
+                        if (r==0) {
+                            r = tam;
+                        } else {
+                            r= r-1;
+                        }
+                        if(c==tam){
+                            c=0;
+                        } else {
+                            c=c+1;
+                        }
+                        nodo= getNodeByRowColumnIndex(r,c,gdpTablero);
+                        label = (Label) nodo;
+                        System.out.println("Valor de label ->" +label.getText());
+                        if (  !label.getText().isEmpty()) {
+                            System.out.println("Pos Actual label  r -> " + r + "   c-> " + c);
+                            r=r-1;
+                            if (r<=0) {
+                                if (tam==2)
+                                    r=tam;
+                                else {
+                                    r = rant+1;
+                                    c = cant+1;
+                                }
+                            } else {
+                                if (tam>2)
+                                    r = rant+1;
+                            }
+                            c=c-1;
+                            if (c<0) c=tam;
+                            System.out.println("Tiene Valor label  r -> "+r+"   c-> "+c);
+                        }
+                    }
+
                 } else {
                     txtPantalla.setText("Coloque numero impar");
                 }
@@ -74,6 +128,21 @@ public class CuadroMagico extends Stage {
         } else {
             txtPantalla.setText("Coloque numeros");
         }
+
+
+    }
+    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> childrens = gridPane.getChildren();
+
+        for (Node node : childrens) {
+            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+
+        return result;
     }
 
 }
