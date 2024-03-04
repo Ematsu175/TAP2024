@@ -77,6 +77,7 @@ public class CuadroMagico extends Stage {
                     double newHeight = valor * 50 + 80;
                     this.setWidth(newWidth);
                     this.setHeight(newHeight);
+
                     // Resolucion
                     double vd=Double.parseDouble(v);
                     int tam=Integer.valueOf(v)-1;
