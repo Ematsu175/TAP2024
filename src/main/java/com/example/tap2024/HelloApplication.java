@@ -29,7 +29,7 @@ public class HelloApplication extends Application {
         bdpPanel.setTop(mnbPrincipal);
         Scene scene = new Scene(bdpPanel);
         scene.getStylesheets().add(getClass().getResource("/estilos/main.css").toString());
-        stage.setTitle("Hello!");
+        stage.setTitle("TAP2024");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();

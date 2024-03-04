@@ -5,14 +5,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.security.auth.callback.ConfirmationCallback;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Timer;
+
+import static com.sun.javafx.tk.Toolkit.getToolkit;
 
 public class Calculadora extends Stage {
     private Scene escena;
@@ -21,7 +24,7 @@ public class Calculadora extends Stage {
     private GridPane gdpTeclado;
     private TextField txtPantalla;
     private Button[][] arrBotones = new Button[4][4];
-    private char[] arrEtiquetas = {'7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'};
+    private char[] arrEtiquetas = {'7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+','C'};
     private String[] arrOperadores = new String[100];
     int arrCont=0;
     String token="";
@@ -29,18 +32,22 @@ public class Calculadora extends Stage {
     private double valorAnterior=0;
     private String numero1, numero2;
     private float n1, n2, resultado;
+    private Button boton;
     public Calculadora() {
         CrearUI();
         this.setTitle("Calculadora");
         this.setScene(escena);
         this.show();
+
     }
     //... en java significa que se espera un arreglo
     private void CrearUI(){
         txtPantalla = new TextField();
+        txtPantalla.setDisable(true);
         gdpTeclado = new GridPane();
+        boton = new Button("Limpiar");
         CrearTeclado();
-        vContenedor = new VBox(txtPantalla, gdpTeclado);
+        vContenedor = new VBox(txtPantalla,boton, gdpTeclado);
         vContenedor.setSpacing(5);
         escena = new Scene(vContenedor, 200,200);
         escena.getStylesheets().add(getClass().getResource("/estilos/calculadora.css").toString());
@@ -59,7 +66,7 @@ public class Calculadora extends Stage {
                 //arrBotones[i][j].setOnAction(event -> setValue(arrEtiquetas[finalPos]));
                 gdpTeclado.add(arrBotones[i][j],j,i);
 
-                if(arrEtiquetas[pos] == '+' || arrEtiquetas[pos] == '-' || arrEtiquetas[pos] == '*' || arrEtiquetas[pos] == '/')
+                if(arrEtiquetas[pos] == '+' || arrEtiquetas[pos] == '-' || arrEtiquetas[pos] == '*' || arrEtiquetas[pos] == '/' || arrEtiquetas[pos] == 'C')
                     arrBotones[i][j].setId("color-operador");
 
                 pos++;
@@ -71,7 +78,6 @@ public class Calculadora extends Stage {
     }
     private String escritura(String v){
         System.out.println("Entra al metodo escritura: "+ v);
-        if (v.matches("\\d+")) {
             switch (v) {
                 case "0":
                     token += "0";
@@ -192,6 +198,10 @@ public class Calculadora extends Stage {
                     //txtPantalla.clear();
                     break;
                 case "=":
+                    if (token.equals(".")) {
+                        txtPantalla.setText("ERROR");
+                        break;
+                    }
                     arrOperadores[arrCont] = token;
                     arrCont++;
                     arrOperadores[arrCont] = "=";
@@ -247,13 +257,22 @@ public class Calculadora extends Stage {
                     System.out.println(token);
                     txtPantalla.setText(token);
                     break;
+                default:
+                    txtPantalla.setText(token);
+                    break;
             }
-        } else {
-            txtPantalla.setText("Ingresa numeros");
-        }
+            boton.setOnAction(event -> limpiar());
+
         //System.out.println("Token: "+token);
         //txtPantalla.setText(token);
         return v;
+    }
+
+    private void limpiar(){
+        token="";
+        arrCont=0;
+        arrOperadores = new String[100];
+        txtPantalla.clear();
     }
 
 }
