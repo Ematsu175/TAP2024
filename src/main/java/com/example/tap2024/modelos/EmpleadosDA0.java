@@ -70,3 +70,5 @@ public class EmpleadosDA0 {
         return listaEmp;
     }
 }
+// Table view con botones anidados
+// verticalBox, tableView,
