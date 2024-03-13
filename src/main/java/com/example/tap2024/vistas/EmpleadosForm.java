@@ -19,9 +19,9 @@ public class EmpleadosForm extends Stage {
     private TextField[] arrTxtCampos = new TextField[5];
     private Button btnGuardar;
     private VBox vboxPrincipal;
-    public EmpleadosForm(TableView<EmpleadosDA0> tbvEmp){
+    public EmpleadosForm(TableView<EmpleadosDA0> tbvEmp, EmpleadosDA0 objEmp){
         tbvEmpleados = tbvEmp;
-        objEmp = new EmpleadosDA0();
+        this.objEmp = (objEmp == null) ? new EmpleadosDA0() : objEmp;
         CrearUI();
         this.setTitle("Insertar Usuarios");
         this.setScene(escena);
@@ -37,10 +37,19 @@ public class EmpleadosForm extends Stage {
             arrTxtCampos[i].setPromptText(arrProm[i]);
             vboxPrincipal.getChildren().add(arrTxtCampos[i]);
         }
+        LlenarForm();
         btnGuardar = new Button("Guardar");
         btnGuardar.setOnAction(event -> GuardarEmpleado());
         vboxPrincipal.getChildren().add(btnGuardar);
         escena = new Scene(vboxPrincipal, 350, 250);
+    }
+
+    private void LlenarForm() {
+        arrTxtCampos[0].setText(objEmp.getNomEmpleado());
+        arrTxtCampos[1].setText(objEmp.getRfcEmpleado());
+        arrTxtCampos[2].setText(String.valueOf(objEmp.getSalario()));
+        arrTxtCampos[3].setText(objEmp.getTelefono());
+        arrTxtCampos[4].setText(objEmp.getDireccion());
     }
 
     private void GuardarEmpleado() {
@@ -49,7 +58,11 @@ public class EmpleadosForm extends Stage {
         objEmp.setSalario(Float.parseFloat(arrTxtCampos[2].getText()));
         objEmp.setTelefono(arrTxtCampos[3].getText());
         objEmp.setDireccion(arrTxtCampos[4].getText());
-        objEmp.INSERTAR();
+        if(objEmp.getIdEmpleado() > 0){
+            objEmp.ACTUALIZAR();
+        } else {
+            objEmp.INSERTAR();
+        }
         tbvEmpleados.setItems(objEmp.CONSULTAR());
         tbvEmpleados.refresh();
 

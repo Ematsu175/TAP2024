@@ -6,11 +6,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.kordamp.bootstrapfx.BootstrapFX;
+import org.kordamp.bootstrapfx.scene.layout.Panel;
+//import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class EmpleadoTaqueria extends Stage {
+    private Panel pnlPrincipal;
+    private BorderPane bpnPrincipal;
     private VBox vbxPrincipal;
     private ToolBar tlbMenu;
     private TableView<EmpleadosDA0> tbvEmpleados;
@@ -29,14 +35,22 @@ public class EmpleadoTaqueria extends Stage {
         imvEmpleado.setFitHeight(50);
         imvEmpleado.setFitWidth(50);
         btnAgregarEmpleado = new Button();
-        btnAgregarEmpleado.setOnAction(event -> new EmpleadosForm(tbvEmpleados));
+        btnAgregarEmpleado.setOnAction(event -> new EmpleadosForm(tbvEmpleados, null));
         btnAgregarEmpleado.setGraphic(imvEmpleado);
         tlbMenu = new ToolBar(btnAgregarEmpleado);
 
         CrearTabla();
-        vbxPrincipal = new VBox(tlbMenu, tbvEmpleados);
-        escena = new Scene(vbxPrincipal, 700, 400);
-
+        bpnPrincipal = new BorderPane();
+        bpnPrincipal.setTop(tlbMenu);
+        bpnPrincipal.setCenter(tbvEmpleados);
+        pnlPrincipal = new Panel("Taqueria");
+        pnlPrincipal.getStyleClass().add("panel-primary");
+        pnlPrincipal.setBody(bpnPrincipal);
+        escena = new Scene( pnlPrincipal, 700, 400);
+        escena.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        //vbxPrincipal = new VBox(tlbMenu, tbvEmpleados);
+        //escena = new Scene(vbxPrincipal, 700, 400);
+        //escena.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
     }
 
     private void CrearTabla(){
@@ -63,12 +77,22 @@ public class EmpleadoTaqueria extends Stage {
                 new Callback<TableColumn<EmpleadosDA0, String>, TableCell<EmpleadosDA0, String>>() {
                     @Override
                     public TableCell<EmpleadosDA0, String> call(TableColumn<EmpleadosDA0, String> empleadosDA0StringTableColumn) {
-                        return new ButtonCell();
+                        return new ButtonCell(1);
                     }
                 }
         );
+        TableColumn<EmpleadosDA0,String> tbcEliminar = new TableColumn<EmpleadosDA0,String>("ELIMINAR");
+        tbcEliminar.setCellFactory(
+                new Callback<TableColumn<EmpleadosDA0, String>, TableCell<EmpleadosDA0, String>>() {
+                    @Override
+                    public TableCell<EmpleadosDA0, String> call(TableColumn<EmpleadosDA0, String> empleadosDA0StringTableColumn) {
+                        return new ButtonCell(2);
+                    }
+                }
+        );
+
         //tbvEmpleados.getColumns().addAll(tbcNomEmp, tbcRfcEmp, tbcSueldo, tbcTelEmp, tbcDir);
-        tbvEmpleados.getColumns().addAll(tbcNomEmp, tbcRfcEmp, tbcSueldo, tbcTelEmp, tbcDir,tbcEditar);
+        tbvEmpleados.getColumns().addAll(tbcNomEmp, tbcRfcEmp, tbcSueldo, tbcTelEmp, tbcDir,tbcEditar,tbcEliminar);
         tbvEmpleados.setItems(objEmpleado.CONSULTAR());
     }
 

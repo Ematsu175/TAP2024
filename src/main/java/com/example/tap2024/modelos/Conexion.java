@@ -14,7 +14,7 @@ public class Conexion {
     public static void crearConexion(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/"+DB+"?allowPublicKeyRetrivieal=true&useSSL=false",USER,PWN);
+            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/"+DB+"",USER,PWN);
             System.out.println("Conexion establecida con exito");
         }catch (Exception e ){
             e.printStackTrace();

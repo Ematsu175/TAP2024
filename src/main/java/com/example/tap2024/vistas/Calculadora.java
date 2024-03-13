@@ -15,7 +15,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 
-import static com.sun.javafx.tk.Toolkit.getToolkit;
+
 
 public class Calculadora extends Stage {
     private Scene escena;
