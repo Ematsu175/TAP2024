@@ -1,10 +1,8 @@
 package com.example.tap2024;
 
+import com.example.tap2024.components.Hilo;
 import com.example.tap2024.modelos.Conexion;
-import com.example.tap2024.vistas.Calculadora;
-import com.example.tap2024.vistas.CuadroMagico;
-import com.example.tap2024.vistas.EmpleadoTaqueria;
-import com.example.tap2024.vistas.Memorama;
+import com.example.tap2024.vistas.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -19,7 +17,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     private MenuBar mnbPrincipal;
     private Menu menParcial1, menParcial2, menSalir;
-    private MenuItem mitCalculadora, mitSalir, mitCuadroMagico, mitMemorama, mitEmpleado;
+    private MenuItem mitCalculadora, mitSalir, mitCuadroMagico, mitMemorama, mitEmpleado, mitPista;
     private BorderPane bdpPanel;
     @Override
     public void start(Stage stage) throws IOException {
@@ -34,6 +32,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+
         Conexion.crearConexion();
     }
 
@@ -52,6 +51,9 @@ public class HelloApplication extends Application {
         mitEmpleado=new MenuItem("Empleado Taqeria");
         mitEmpleado.setOnAction(event -> new EmpleadoTaqueria());
 
+        mitPista = new MenuItem("Manejo de Hilos");
+        mitPista.setOnAction(event -> new Pista());
+
         menParcial1 = new Menu("Primer parcial");
         menParcial1.getItems().addAll(mitCalculadora);
         menParcial1.getItems().addAll(mitCuadroMagico);
@@ -60,6 +62,7 @@ public class HelloApplication extends Application {
 
         // Segundo Parcial
         menParcial2 = new Menu("segundo parcial");
+        menParcial2.getItems().addAll(mitPista);
 
         // menu salir
         mitSalir = new MenuItem("Salir");
