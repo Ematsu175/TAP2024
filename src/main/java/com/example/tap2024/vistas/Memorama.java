@@ -42,7 +42,7 @@ public class Memorama extends Stage {
         ventana3 = new HBox();
         ventana4 = new HBox();
         ventana5 = new HBox();
-        escena = new Scene(vContenedor, 500, 500);
+        escena = new Scene(vContenedor, 1000, 600);
         CrearTablero();
 
         CrearEncabezado();
@@ -68,21 +68,24 @@ public class Memorama extends Stage {
     }
 
     private void CrearTablero() {
-        String[] arrImages = {"calavera.jpg", "dragon.png", "gota.png", "minion.png"};
-        Button[][] arrButtonCartas = new Button[2][4];
+        String[] arrImages = {"calavera.jpg", "dragon.png", "gota.png", "minion.png","dona.png","galleta.png","hamburguesa.png",
+                "helado.png","naruto.png","palomitas.png","papas.png","pez.png","pizza.png","sopa.png","taco.png"};
+        Button[][] arrButtonCartas = new Button[5][6];
 
         ImageView imvCarta;
         int posx = 0;
         int posy = 0;
         int cont = 0;
         for (int i = 0; i < arrImages.length; ) {
-            posx = (int) (Math.random()*2);
-            posy = (int) (Math.random()*4);
+            posx = (int) (Math.random()*5);
+            posy = (int) (Math.random()*6);
             if(arrButtonCartas[posx][posy] == null){
                 arrButtonCartas[posx][posy] = new Button();
                 imvCarta = new ImageView(getClass().getResource("/images/"+arrImages[i]).toString());
+                imvCarta.setFitWidth(100);
+                imvCarta.setFitHeight(100);
                 arrButtonCartas[posx][posy].setGraphic(imvCarta);
-                arrButtonCartas[posx][posy].setPrefSize(100,150);
+                //arrButtonCartas[posx][posy].setPrefSize(100,100);
                 tecladoMemorama.add(arrButtonCartas[posx][posy],posy,posx);
                 cont++;
                 if(cont == 2)  {
